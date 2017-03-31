@@ -1,4 +1,4 @@
-import socket 
+import socket
 import time
 import sys
 import ipaddress
@@ -19,16 +19,14 @@ try:
 except:
 	print("usage: "+sys.argv[0]+" %ip %port[>1024]")
 	sys.exit(2)
+#BUFFER_SIZE = 10
+tcpClient = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+tcpClient.connect((host, port))
 
-	
-#BUFFER_SIZE = 10 
-tcpClientA = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
-tcpClientA.connect((host, port))
- 
-while True: 
+while True:
 	cpuAvg = os.getloadavg()[0]
 	#print(MESSAGE)
-	tcpClientA.sendall(str(cpuAvg).encode())
-	time.sleep(5)     
- 
-tcpClientA.close() 
+	tcpClient.sendall(str(cpuAvg).encode())
+	time.sleep(5)
+
+tcpClient.close() 
