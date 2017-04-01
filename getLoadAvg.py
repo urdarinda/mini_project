@@ -22,7 +22,6 @@ class Client(threading.Thread):
 
 			if data == "b''":
 				data = "100"
-				break
 			else:
 				data = data[2:-1]
 
@@ -36,6 +35,8 @@ class Client(threading.Thread):
 			for key,value in sorted_dict:
 				filename.write(key + " " + value + "\n")
 			Client.lock.release()
+			if(data == "100"):
+				break
 
 sock = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 serverAddress=('',9994)
