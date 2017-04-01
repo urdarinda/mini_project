@@ -14,9 +14,9 @@ class Client(threading.Thread):
 
 	def run(self):
 		(ipOfClient,port) = self.clientAddress
-		
+
 		while True:
-			filename = open("/tmp/iplist.txt","w")
+			filename = open("iplist.txt","w")
 			data = self.conn.recv(10)
 			data = str(data)
 
