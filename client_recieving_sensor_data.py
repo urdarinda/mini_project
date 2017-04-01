@@ -20,20 +20,23 @@ class Client(threading.Thread):
 			# filename = open("iplist.txt","w")
 		data = self.conn.recv(10)
 		data = str(data)
-		data=str(10)
+		data= data[2:-1]
+		print(data)
 		dockerClient=docker.from_env(version="auto");
 		data="python /src/hello.py " + data
 		#dockerClient.containers.run("bash","ls /tmp",volumes={'/home/urdarinda/':{'bind':'/tmp','mode':'ro'}})
 		ans = dockerClient.containers.run(image="lol",command=data)
-		ipOfClient.sendall(ans)
+		print(ans)
+		self.conn.send(ans)
 
 
 sock = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-serverAddress=('',9994)
+serverAddress=('',10027)
 sock.bind(serverAddress)
 sock.listen(10)
-
-while True:
+a=10
+while a:
+	a=a-1
 	print("Waiting for Connections")
 	connection,clientAddress = sock.accept()
 	thread = Client(connection,clientAddress)
