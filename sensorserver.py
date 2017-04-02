@@ -1,6 +1,4 @@
-import time
 import socket
-import sys
 import threading
 
 new_dict = {}
@@ -8,12 +6,12 @@ new_dict = {}
 class Master(threading.Thread):
 	lock = threading.Lock()
 
-	def __init__(self,connection,sensorAddress): 
-		threading.Thread.__init__(self) 
+	def __init__(self,connection,sensorAddress):
+		threading.Thread.__init__(self)
 		self.conn = connection
 		self.sensorAddress = sensorAddress
 
-	def run(self): 
+	def run(self):
 		(ipOfSensor,port) = self.sensorAddress
 
 		while True:
