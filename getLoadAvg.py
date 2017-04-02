@@ -17,16 +17,12 @@ class Client(threading.Thread):
 
 		while True:
 			filename = open("iplist.txt","w")
-			data = self.conn.recv(10)
-			data = str(data)
+			data = self.conn.recv(10).decode()
 
-			if data == "b''":
+			if data == "":
 				data = "100"
-			else:
-				data = data[2:-1]
 
-			print(ipOfClient + " " + data)
-
+			print(ipOfClient + " " + str(data) )
 			new_dict[ipOfClient]=data
 
 			Client.lock.acquire()

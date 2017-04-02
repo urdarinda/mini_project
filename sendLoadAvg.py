@@ -19,14 +19,13 @@ try:
 except:
 	print("usage: "+sys.argv[0]+" %ip %port[>1024]")
 	sys.exit(2)
-#BUFFER_SIZE = 10
+
 tcpClient = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 tcpClient.connect((host, port))
 
 while True:
-	cpuAvg = os.getloadavg()[0]
-	#print(MESSAGE)
-	tcpClient.sendall(str(cpuAvg).encode())
+	cpuAvg = str(os.getloadavg()[0])
+	tcpClient.sendall(cpuAvg.encode())
 	time.sleep(5)
 
-tcpClient.close() 
+tcpClient.close()
