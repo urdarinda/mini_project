@@ -37,5 +37,5 @@ sock.listen(10)
 while True:
 	print("Waiting for Connections")
 	connection,masterAddress = sock.accept()
-	thread = Client(connection,masterAddress)
+	thread = Worker(connection,masterAddress)
 	thread.start()
