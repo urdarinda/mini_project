@@ -35,7 +35,7 @@ class Client(threading.Thread):
 				break
 
 sock = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-serverAddress=('',9994)
+serverAddress=('',10001)
 sock.bind(serverAddress)
 sock.listen(10)
 

@@ -30,7 +30,7 @@ class Worker(threading.Thread):
 
 
 sock = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-workerAddress=('',20001)
+workerAddress=('',10002)
 sock.bind(workerAddress)
 sock.listen(10)
 

@@ -26,7 +26,7 @@ class Master(threading.Thread):
 				ipOfWorker = line[0]
 				print(ipOfWorker)
 				#iptosend = "172.31.84.177"
-				portOfWorker = 20001
+				portOfWorker = 10002
 				workerSock = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 				workerAddress = (ipOfWorker,portOfWorker)
 				workerSock.connect(workerAddress)
@@ -36,7 +36,7 @@ class Master(threading.Thread):
 				print(retanswer)
 
 sock = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-server_address=('',9997)
+server_address=('',10003)
 sock.bind(server_address)
 sock.listen(10)
 
