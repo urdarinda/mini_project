@@ -1,1 +1,3 @@
 iplist.txt
+test*
+__pycache__/
