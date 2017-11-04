@@ -1,48 +1,55 @@
+"""Sensor servers
+
+The sensors are connected to this node. It will collect data and send them
+to the appropriate node for processing.
+"""
+
 import socket
 import threading
 
 new_dict = {}
 
-class Master(threading.Thread):
-	lock = threading.Lock()
 
-	def __init__(self,connection,sensorAddress):
-		threading.Thread.__init__(self)
-		self.conn = connection
-		self.sensorAddress = sensorAddress
+class SensorServer(threading.Thread):
+    lock = threading.Lock()
 
-	def run(self):
-		(ipOfSensor,port) = self.sensorAddress
+    def __init__(self, connection, sensorAddress):
+        threading.Thread.__init__(self)
+        self.conn = connection
+        self.sensorAddress = sensorAddress
 
-		#while True:
-		print("Received data from sensor ")
-		data = self.conn.recv(10)
-		#print(port,ipOfSensor)
-		print(str(data))
-		filename = open("iplist.txt","r")
-		line = filename.readline()
-		line = line.split()
+    def run(self):
+        (ipOfSensor, port) = self.sensorAddress
 
-		if len(line) > 0:
-			ipOfWorker = line[0]
-			print(ipOfWorker)
-			#iptosend = "172.31.84.177"
-			portOfWorker = 10002
-			workerSock = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-			workerAddress = (ipOfWorker,portOfWorker)
-			workerSock.connect(workerAddress)
-			workerSock.send(data)
-			retanswer=workerSock.recv(10)
-			print("hello")
-			print(retanswer)
+        # while True:
+        print("Received data from sensor ")
+        data = self.conn.recv(10)
+        # print(port,ipOfSensor)
+        print(str(data))
+        filename = open("iplist.txt", "r")
+        line = filename.readline()
+        line = line.split()
 
-sock = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-server_address=('',10003)
+        if len(line) > 0:
+            ipOfWorker = line[0]
+            print(ipOfWorker)
+            portOfWorker = 10002
+            workerSock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            workerAddress = (ipOfWorker, portOfWorker)
+            workerSock.connect(workerAddress)
+            workerSock.send(data)
+            retanswer = workerSock.recv(10)
+            print("hello")
+            print(retanswer)
+
+
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+server_address = ('', 10003)
 sock.bind(server_address)
 sock.listen(10)
 
 while True:
-	print("Waiting for Sensor Data")
-	connection,sensorAddress = sock.accept()
-	thread = Master(connection,sensorAddress)
-	thread.start()
+    print("Waiting for Sensor Data")
+    connection, sensorAddress = sock.accept()
+    thread = SensorServer(connection, sensorAddress)
+    thread.start()
