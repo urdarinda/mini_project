@@ -12,7 +12,7 @@ class ImageDHT(object):
         """Constructor.
 
         A DHT is created based on the arguments.By default this is the first
-        node of the DHT.If a tuple is provided, it is used as seed 
+        node of the DHT.If a tuple is provided, it is used as seed.
 
         Args:
             ip (ipaddress): IP address of the dht node.
@@ -24,6 +24,8 @@ class ImageDHT(object):
         self.port = port
         self.seed = seed
         if not seed:
-            self.node = DHT(self.ip, self.port)
+            self.ip_to_cpu = DHT(self.ip, self.port)
+            self.ext_to_ip = DHT(self.ip, self.port + 1)
         else:
-            self.node = DHT(self.ip, self.port, seeds=[seed])
+            self.ip_to_cpu = DHT(self.ip, self.port, seeds=[seed])
+            self.ext_to_ip = DHT(self.ip, self.port + 1, seeds=[seed])
