@@ -50,7 +50,8 @@ class Updateload():
         thread.daemon = True
         thread.start()
 
-    def run(self):
+    @staticmethod
+    def run():
         while True:
             cpu_avg = os.getloadavg()[0]
             dht.ip_to_cpu[sys.argv[1]] = cpu_avg
@@ -74,8 +75,8 @@ if __name__ == "__main__":
     dht.ip_to_cpu['172.31.81.241'] = 5
     updateload = Updateload()
 
-    # while True:
-    #    print (dht.ip_to_cpu[sys.argv[1]])
+    #while True:
+     #   print (dht.ip_to_cpu[sys.argv[1]])
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_address = ('', 10004)
     sock.bind(server_address)
