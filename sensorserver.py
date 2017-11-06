@@ -16,32 +16,28 @@ from updatelist import UpdateList
 
 
 class SensorServer(threading.Thread):
-    lock = threading.Lock()
 
     def __init__(self, connection, sensorAddress):
+
         threading.Thread.__init__(self)
         self.conn = connection
         self.sensorAddress = sensorAddress
 
     def run(self):
-        (ipOfSensor, port) = self.sensorAddress
 
-        # while True:
-        print("Received data from sensor ")
+        (ipOfSensor, port) = self.sensorAddress
         data = self.conn.recv(50)
-        # print(port,ipOfSensor)
-        data = json.loads(data.decode())
-        print((data), data["type"], data["value"])
-        ipOfWorker = ExtToIP(dht, data).getbest()
-        print(ipOfWorker)
-        # portOfWorker = 10002
-        # workerSock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        # workerAddress = (ipOfWorker, portOfWorker)
-        # workerSock.connect(workerAddress)
-        # workerSock.send(data)
-        # retanswer = workerSock.recv(10)
-        # print("hello")
-        # print(retanswer)
+        decoded_data = json.loads(data.decode())
+        print(decoded_data)
+        worker_ip = ExtToIP(dht, decoded_data).getbest()
+        print("work", worker_ip)
+        worker_port = 10002
+        worker_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        worker_sock.connect((worker_ip, worker_port))
+        worker_sock.sendall(data)
+        retanswer = worker_sock.recv(50)
+        print(retanswer)
+        # SEND DATA TO SENSOR
 
 
 class Updateload():
@@ -69,23 +65,14 @@ if __name__ == "__main__":
     port = int(sys.argv[2]) if len(sys.argv) > 2 else 12550
     seeed = tuple([sys.argv[3], sys.argv[4]]) if len(sys.argv) > 4 else ()
     dht = ImageDHT(ipaddress, port, seeed)
-    updatelist = UpdateList(dht, ipaddress)
-    dht.ip_to_cpu['aa'] = 5
-    print(dht.ip_to_cpu['aa'])
-    dht.ext_to_ip["temp"] = ['172.31.80.240', '172.31.81.241']
-    dht.ext_to_ip["hum"] = ['172.31.80.240']
-    dht.ip_to_cpu['172.31.81.241'] = 5
-    updateload = Updateload()
-
-    #while True:
-     #   print (dht.ip_to_cpu[sys.argv[1]])
+    UpdateList(dht, ipaddress)
+    Updateload()
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    server_address = ('', 10010)
+    server_address = ('', 10005)
     sock.bind(server_address)
     sock.listen(10)
 
     while True:
-        print("Waiting for Sensor Data")
         connection, sensorAddress = sock.accept()
         thread = SensorServer(connection, sensorAddress)
         thread.start()
