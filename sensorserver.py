@@ -12,6 +12,7 @@ import os
 import json
 from imagedht import ImageDHT
 from exttoip import ExtToIP
+from updatelist import UpdateList
 
 
 class SensorServer(threading.Thread):
@@ -68,6 +69,7 @@ if __name__ == "__main__":
     port = int(sys.argv[2]) if len(sys.argv) > 2 else 12550
     seeed = tuple([sys.argv[3], sys.argv[4]]) if len(sys.argv) > 4 else ()
     dht = ImageDHT(ipaddress, port, seeed)
+    updatelist = UpdateList(dht, ipaddress)
     dht.ip_to_cpu['aa'] = 5
     print(dht.ip_to_cpu['aa'])
     dht.ext_to_ip["temp"] = ['172.31.80.240', '172.31.81.241']
@@ -78,7 +80,7 @@ if __name__ == "__main__":
     #while True:
      #   print (dht.ip_to_cpu[sys.argv[1]])
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    server_address = ('', 10004)
+    server_address = ('', 10010)
     sock.bind(server_address)
     sock.listen(10)
 
