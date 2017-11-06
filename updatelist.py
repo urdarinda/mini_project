@@ -15,7 +15,7 @@ class UpdateList(object):
 
         self.dht = dht
         self.ip = ip
-        env = docker.from_env()
+        env = docker.from_env(version="auto")
         while True:
             for image in env.images.list():
 
