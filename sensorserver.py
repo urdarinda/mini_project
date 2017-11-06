@@ -63,7 +63,7 @@ if __name__ == "__main__":
 
     ipaddress = sys.argv[1]
     port = int(sys.argv[2]) if len(sys.argv) > 2 else 12550
-    seeed = tuple([sys.argv[3], sys.argv[4]]) if len(sys.argv) > 4 else ()
+    seeed = tuple([sys.argv[3], int(sys.argv[4])]) if len(sys.argv) > 4 else ()
     dht = ImageDHT(ipaddress, port, seeed)
     UpdateList(dht, ipaddress)
     Updateload()
