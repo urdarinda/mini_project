@@ -19,5 +19,5 @@ class ExtToIP:
             return bestnode
 
         except:
-            pass
+            raise KeyError
             """TODO DOWNLOAD DOCKER IMAGE ON THE SAME SYSTEM AND DEPLOY"""
