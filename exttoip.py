@@ -8,6 +8,7 @@ class ExtToIP:
 
     def getbest(self):
         try:
+
             iplist = self.dht.ext_to_ip[self.data["type"]]
             bestnode = iplist[0]
             cur = 100

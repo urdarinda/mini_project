@@ -19,8 +19,8 @@ class UpdateList(object):
         while True:
             for image in env.images.list():
 
-                image_name = str(image).split(':')[1].strip(" '")
-                #print(image_name)
+                image_name = image.tags[0].split(':')[0]
+                # print(image_name)
                 try:
                     if self.ip not in dht.ext_to_ip[image_name]:
                         dht.ext_to_ip[image_name] += [self.ip]
@@ -28,5 +28,5 @@ class UpdateList(object):
                 except KeyError:
                     dht.ext_to_ip[image_name] = [self.ip]
 
-                #print(dht.ext_to_ip[image_name])
+                # print(dht.ext_to_ip[image_name])
             time.sleep(86400)
