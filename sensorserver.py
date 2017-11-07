@@ -68,6 +68,7 @@ if __name__ == "__main__":
     UpdateList(dht, ipaddress)
     Updateload()
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     server_address = ('', 10005)
     sock.bind(server_address)
     sock.listen(10)

@@ -17,7 +17,7 @@ class Worker(threading.Thread):
         (ipOfMaster, port) = self.masterAddress
         data = self.conn.recv(50)
         decoded_data = json.loads(data.decode())
-        # print(data)
+        print("Working for ", ipOfMaster, "with data ", data)
         image_name = decoded_data["type"]
         data_value = decoded_data["value"]
         docker_worker = docker.from_env(version="auto")
@@ -28,6 +28,7 @@ class Worker(threading.Thread):
 
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 workerAddress = ('', 10002)
 sock.bind(workerAddress)
 sock.listen(10)
