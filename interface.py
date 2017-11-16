@@ -6,6 +6,7 @@ dht_object = ImageDHT(sys.argv[1],int(sys.argv[2]),(sys.argv[3],int(sys.argv[4])
 while True:
 	
 	query = input("Enter your query\n")
+	print("1 for getting cpu usage of a node\n 2 for getting nodes having a particular image \n 3 to get all peers \n 6 to exit\n")
 	query = int(query)
 
 	if query == 1:
