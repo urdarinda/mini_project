@@ -14,7 +14,8 @@ four arguments are your ip, your port, the ip of the node you are connecting to 
 class UIHandler:
 
     def __init__(self,argv1,argv2,argv3,argv4):
-        self.dht_object = ImageDHT(argv1, int(argv2), argv3, int(argv4))
+        self.dht_object = ImageDHT(argv1, int(argv2),( argv3, int(argv4)))
+        print ('s')
 
     def extract_info(self,number,query):
         number = int(number)

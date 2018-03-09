@@ -1,7 +1,5 @@
 import sys
-import code
-import code2
-#import interface
+import new_interface
 from PyQt5.QtWidgets import QMainWindow, QApplication, QWidget, QPushButton, QAction, QLineEdit, QMessageBox
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import pyqtSlot
@@ -16,12 +14,13 @@ class App(QMainWindow):
         self.width = 640
         self.height = 480
         self.initUI()
+        self.Object = new_interface.UIHandler(sys.argv[1],sys.argv[2],sys.argv[3],sys.argv[4])
 
     def initUI(self):
         self.setWindowTitle(self.title)
         self.setGeometry(self.left, self.top, self.width, self.height)
 
-        #Object = interface.UIHandler(argv1,argv2,argv3,argv3)
+        
 
 
         #######
@@ -57,30 +56,29 @@ class App(QMainWindow):
     def on_click_one(self):
 
         self.textboxvalue = self.textbox_one.text()
-        #self.textboxvalue = self.Object.extract_info(1,self.textboxvalue)
-        self.textboxvalue = code.func(self.textboxvalue)
+        self.textboxvalue = str(self.Object.extract_info(1,self.textboxvalue))
+        #self.textboxvalue = code.func(self.textboxvalue)
         QMessageBox.question(self,'Information',self.textboxvalue,QMessageBox.Ok,QMessageBox.Ok)
         self.textbox_one.setText("")
         #self.textbox.text("")
 
     def on_click_two(self):
         self.textboxvalue = self.textbox_two.text()
-        # self.textboxvalue = self.Object.extract_info(2,self.textboxvalue)
-        self.textboxvalue = code.func(self.textboxvalue)
+        self.textboxvalue = str(self.Object.extract_info(2,self.textboxvalue))
+        print ()
+        #self.textboxvalue = code.func(self.textboxvalue)
         QMessageBox.question(self,'Information',self.textboxvalue,QMessageBox.Ok,QMessageBox.Ok)
         self.textbox_two.setText("")
         #self.textbox.text("")
 
     def on_click_three(self):
-        obj = code2.MyClass()
-        self.textboxvalue = obj.func()
-        # self.textboxvalue = self.Object.extract_info(3,"")
+        #obj = code2.MyClass()
+        #self.textboxvalue = obj.func()
+        self.textboxvalue = str(self.Object.extract_info(3,""))
         QMessageBox.question(self,'Information',self.textboxvalue,QMessageBox.Ok,QMessageBox.Ok)
-        #self.textbox_one.setText("")
-        #self.textbox_two.setText("")
+        self.textbox_one.setText("")
+        self.textbox_two.setText("")
         #self.textbox.text("")
-
-
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     ex = App()

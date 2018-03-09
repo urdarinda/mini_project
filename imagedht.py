@@ -32,9 +32,11 @@ class ImageDHT(object):
 
     def get_iptocpu(self, key):
         print(self.ip_to_cpu[key])
+        return self.ip_to_cpu[key]
 
     def get_exttoip(self, key):
         print(self.ext_to_ip[key])
+        return self.ext_to_ip[key]
 
     '''def set_item_iptocpu(self,key,value):
         self.ip_to_cpu[key]=value
@@ -46,6 +48,7 @@ class ImageDHT(object):
     def get_peers(self):
         for peer in self.ext_to_ip.peers():
             print(peer)
+        return self.ext_to_ip.peers()
 
     def get_all_iptocpu(self):
         for key in self.ip_to_cpu:
