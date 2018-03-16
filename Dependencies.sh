@@ -2,21 +2,21 @@
 
 
 ################ install pip ########################
-apt-get install python3-pip
+apt-get -y install python3-pip
 
 ################ install PyQt5 ######################
-apt-get install python-pyqt5
+pip3 install pyqt5
 
 ############## install docker module in python #################
-pip install docker
+pip3 install docker
 
 ################ Download Kad file and install ##################
 wget https://pypi.python.org/packages/e3/09/fada80a946dfb41c470877a0bb5c15e4e43061dfc77d0b622212c13647f6/kad.py-0.5.6-py3-none-any.whl#md5=a378a9feb12d4d51689e24649ab8d10b
-pip install kad.py-0.5.6-py3-none-any.whl
+pip3 install kad.py-0.5.6-py3-none-any.whl
 
 ######################## Install Docker ##################
-apt-get update
-apt-get install \
+apt-get -y update
+apt-get -y install \
     apt-transport-https \
     ca-certificates \
     curl \
@@ -27,8 +27,8 @@ add-apt-repository \
    "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
    $(lsb_release -cs) \
    stable"
-apt-get update
-apt-get install docker-ce
+apt-get -y update
+apt-get -y install docker-ce
 
 ############# Proxy setting in Docker  ###################
 mkdir -p /etc/systemd/system/docker.service.d
