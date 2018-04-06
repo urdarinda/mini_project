@@ -13,6 +13,7 @@ import json
 from imagedht import ImageDHT
 from exttoip import ExtToIP
 from updatelist import UpdateList
+from lxml import etree
 
 
 class SensorServer(threading.Thread):
@@ -23,11 +24,27 @@ class SensorServer(threading.Thread):
         self.conn = connection
         self.sensorAddress = sensorAddress
 
+    def datadecode(self,data):
+        
+        try:
+            decoded = json.loads(data)
+            
+        except:
+            try:
+                xmltree = etree.fromstring(data)
+                decoded = {}
+                print(data)
+                for child in xmltree:
+                    decoded[child.tag] = child.text
+            except:
+                print("Error")
+        return decoded
+
     def run(self):
 
         (ipOfSensor, port) = self.sensorAddress
-        data = self.conn.recv(50)
-        decoded_data = json.loads(data.decode())
+        data = self.conn.recv(200)
+        decoded_data = self.datadecode(data.decode())
         print(decoded_data)
         worker_ip = ExtToIP(dht, decoded_data).getbest()
         print("work", worker_ip)
@@ -38,6 +55,9 @@ class SensorServer(threading.Thread):
         retanswer = worker_sock.recv(50)
         print(retanswer)
         # SEND DATA TO SENSOR
+
+
+
 
 
 class Updateload():
