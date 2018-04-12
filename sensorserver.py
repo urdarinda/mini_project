@@ -51,7 +51,8 @@ class SensorServer(threading.Thread):
         worker_port = 10002
         worker_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         worker_sock.connect((worker_ip, worker_port))
-        worker_sock.sendall(data)
+        encoded_data = json.dumps(decoded_data)
+        worker_sock.sendall(encoded_data.encode())
         retanswer = worker_sock.recv(50)
         print(retanswer)
         # SEND DATA TO SENSOR
