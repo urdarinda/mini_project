@@ -7,6 +7,7 @@ import os
 import json
 import random
 from lxml import etree
+import datetime
 
 # Connect the socket to the port where the server is listening
 if(len(sys.argv)!=3):
