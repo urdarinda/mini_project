@@ -26,9 +26,11 @@ class ImageDHT(object):
         if not seed:
             self.ip_to_cpu = DHT(self.ip, self.port)
             self.ext_to_ip = DHT(self.ip, self.port + 1)
+	    self.loc_to_ip = DHT(self.ip, self.port + 2)
         else:
             self.ip_to_cpu = DHT(self.ip, self.port, seeds=[seed])
             self.ext_to_ip = DHT(self.ip, self.port + 1, seeds=[seed])
+            self.loc_to_ip = DHT(self.ip, self.port + 2, seeds=[seed])
 
     def get_iptocpu(self, key):
         print(self.ip_to_cpu[key])
@@ -37,6 +39,10 @@ class ImageDHT(object):
     def get_exttoip(self, key):
         print(self.ext_to_ip[key])
         return self.ext_to_ip[key]
+    
+    def get_loctoip(self, key):
+        print(self.loc_to_ip[key])
+        return self.loc_to_ip[key]
 
     '''def set_item_iptocpu(self,key,value):
         self.ip_to_cpu[key]=value
@@ -57,3 +63,7 @@ class ImageDHT(object):
     def get_all_exttoip(self):
         for key in self.ext_to_ip:
             print(key, " ", self.ext_to_ip[key])
+            
+     def get_all_loctoip(self):
+        for key in self.loc_to_ip:
+            print(key, " ", self.loc_to_ip[key])           
