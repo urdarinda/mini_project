@@ -7,7 +7,7 @@ import os
 import json
 import random
 from lxml import etree
-import datetime
+import time
 
 # Connect the socket to the port where the server is listening
 if(len(sys.argv)!=3):
@@ -36,7 +36,7 @@ try:
 
 		value.text = str(random.randint(0,99))
 		data_type.text = 'temp'
-		timestamp.text = str(datetime.datetime.now().time())
+		timestamp.text = str(time.time())
 		root.append(data_type)
 		root.append(value)
 		root.append(timestamp)
