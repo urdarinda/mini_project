@@ -30,11 +30,15 @@ try:
 			
 		root = 	etree.Element('root')
 		value = etree.Element('value')
-		value.text = str(random.randint(0,99))
 		data_type = etree.Element('type')
+		timestamp = etree.Element('timestamp')
+
+		value.text = str(random.randint(0,99))
 		data_type.text = 'temp'
+		timestamp.text = str(datetime.datetime.now().time())
 		root.append(data_type)
 		root.append(value)
+		root.append(timestamp)
 
 		#message = {}
 		#message["type"] = sys.argv[2]
