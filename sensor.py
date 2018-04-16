@@ -6,6 +6,7 @@ import ipaddress
 import os
 import json
 import random
+import datetime
 
 # Connect the socket to the port where the server is listening
 if(len(sys.argv)!=3):
@@ -29,6 +30,7 @@ try:
 		message = {}
 		message["type"] = sys.argv[2]
 		message["value"] = random.randint(0,99)
+		message["timestamp"] = datetime.datetime.now().time()
 		encoded_data = json.dumps(message)
 		sock.sendall(encoded_data.encode())
 		time.sleep(1)
