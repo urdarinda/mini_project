@@ -33,15 +33,15 @@ class ImageDHT(object):
             self.loc_to_ip = DHT(self.ip, self.port + 2, seeds=[seed])
 
     def get_iptocpu(self, key):
-        print(self.ip_to_cpu[key])
+        #print(self.ip_to_cpu[key])
         return self.ip_to_cpu[key]
 
     def get_exttoip(self, key):
-        print(self.ext_to_ip[key])
+        #print(self.ext_to_ip[key])
         return self.ext_to_ip[key]
     
     def get_loctoip(self, key):
-        print(self.loc_to_ip[key])
+        #print(self.loc_to_ip[key])
         return self.loc_to_ip[key]
 
     '''def set_item_iptocpu(self,key,value):

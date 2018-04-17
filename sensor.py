@@ -30,7 +30,7 @@ try:
 		message = {}
 		message["type"] = sys.argv[2]
 		message["value"] = random.randint(0,99)
-		message["timestamp"] = time.time()
+		message["timestamp"] = str(time.time())
 		encoded_data = json.dumps(message)
 		sock.sendall(encoded_data.encode())
 		time.sleep(1)

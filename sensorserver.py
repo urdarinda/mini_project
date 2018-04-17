@@ -54,8 +54,17 @@ class SensorServer(threading.Thread):
         worker_sock.connect((worker_ip, worker_port))
         encoded_data = json.dumps(decoded_data)
         worker_sock.sendall(encoded_data.encode())
-        retanswer = worker_sock.recv(50)
-        print(retanswer)
+        retanswer = worker_sock.recv(2000)
+        answer = {}
+        answer["timestamp"] = decoded_data["timestamp"]
+        answer["value"] = retanswer.decode()
+        json_ans = json.dumps(answer) 
+        print ("ANS: "+ json_ans)
+        actuator_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        actuator_port = 10008
+        actuator_ip = dht.get_loctoip(ipOfSensor)[0]
+        actuator_sock.connect((actuator_ip, actuator_port))
+        actuator_sock.sendall(json_ans.encode())
         # SEND DATA TO SENSOR
 
 
@@ -90,6 +99,7 @@ if __name__ == "__main__":
     UpdateList(dht, ipaddress)
     Updateload()
     UpdateLocation(dht, ipaddress)
+    dht.get_all_loctoip()
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     server_address = ('', 10005)
