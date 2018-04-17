@@ -90,8 +90,6 @@ if __name__ == "__main__":
     UpdateList(dht, ipaddress)
     Updateload()
     UpdateLocation(dht, ipaddress)
-    dht.get_all_loctoip()
-    dht.get_loctoip('172.31.80.240')
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     server_address = ('', 10005)
