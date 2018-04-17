@@ -15,7 +15,7 @@ class Worker(threading.Thread):
     def run(self):
 
         (ipOfMaster, port) = self.masterAddress
-        data = self.conn.recv(50)
+        data = self.conn.recv(200)
         decoded_data = json.loads(data.decode())
         print("Working for ", ipOfMaster, "with data ", data)
         image_name = decoded_data["type"]
