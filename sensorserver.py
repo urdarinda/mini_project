@@ -57,12 +57,13 @@ class SensorServer(threading.Thread):
         retanswer = worker_sock.recv(2000)
         answer = {}
         answer["timestamp"] = decoded_data["timestamp"]
+        answer["ip"] = decoded_data["ip"]
         answer["value"] = retanswer.decode()
         json_ans = json.dumps(answer) 
         print ("ANS: "+ json_ans)
         actuator_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         actuator_port = 10008
-        actuator_ip = dht.get_loctoip(ipOfSensor)[0]
+        actuator_ip = answer["ip"]
         actuator_sock.connect((actuator_ip, actuator_port))
         actuator_sock.sendall(json_ans.encode())
         # SEND DATA TO SENSOR
