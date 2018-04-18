@@ -9,7 +9,7 @@ import random
 import time
 
 # Connect the socket to the port where the server is listening
-if(len(sys.argv)!=3):
+if(len(sys.argv)!=4):
 	print("usage: "+sys.argv[0]+" %ip ,type ")
 	sys.exit(2)
 
@@ -24,13 +24,14 @@ except:
 	sys.exit(2)
 
 try:
-	#while(True):
+	while(True):
 		sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 		sock.connect((host,port))
 		message = {}
 		message["type"] = sys.argv[2]
 		message["value"] = random.randint(0,99)
 		message["timestamp"] = str(time.time())
+		message["ip"] = sys.argv[3]
 		encoded_data = json.dumps(message)
 		sock.sendall(encoded_data.encode())
 		time.sleep(1)
