@@ -10,7 +10,7 @@ from lxml import etree
 import time
 
 # Connect the socket to the port where the server is listening
-if(len(sys.argv)!=3):
+if(len(sys.argv)!=4):
 	print("usage: "+sys.argv[0]+" %ip ,type ")
 	sys.exit(2)
 
@@ -25,7 +25,7 @@ except:
 	sys.exit(2)
 
 try:
-	#while(True):
+	while(True):
 		sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 		sock.connect((host,port))
 			
@@ -33,14 +33,17 @@ try:
 		value = etree.Element('value')
 		data_type = etree.Element('type')
 		timestamp = etree.Element('timestamp')
+		ip = etree.Element("ip")
 
 		value.text = str(random.randint(0,99))
 		data_type.text = 'temp'
 		timestamp.text = str(time.time())
+		ip.text = sys.argv[3]
+
 		root.append(data_type)
 		root.append(value)
 		root.append(timestamp)
-
+		root.append(ip)
 		#message = {}
 		#message["type"] = sys.argv[2]
 		#message["value"] = random.randint(0,99)
