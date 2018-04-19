@@ -34,7 +34,7 @@ class SensorServer(threading.Thread):
             try:
                 xmltree = etree.fromstring(data)
                 decoded = {}
-                print(data)
+                #print(data)
                 for child in xmltree:
                     decoded[child.tag] = child.text
             except:
@@ -46,9 +46,9 @@ class SensorServer(threading.Thread):
         (ipOfSensor, port) = self.sensorAddress
         data = self.conn.recv(200)
         decoded_data = self.datadecode(data.decode())
-        print(decoded_data)
+        #print(decoded_data)
         worker_ip = ExtToIP(dht, decoded_data).getbest()
-        print("work", worker_ip)
+        #print("work", worker_ip)
         worker_port = 10002
         worker_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         worker_sock.connect((worker_ip, worker_port))
@@ -60,7 +60,7 @@ class SensorServer(threading.Thread):
         answer["ip"] = decoded_data["ip"]
         answer["value"] = retanswer.decode()
         json_ans = json.dumps(answer) 
-        print ("ANS: "+ json_ans)
+        #print ("ANS: "+ json_ans)
         actuator_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         actuator_port = 10008
         actuator_ip = answer["ip"]
@@ -100,7 +100,7 @@ if __name__ == "__main__":
     UpdateList(dht, ipaddress)
     Updateload()
     UpdateLocation(dht, ipaddress)
-    dht.get_all_loctoip()
+    #dht.get_all_loctoip()
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     server_address = ('', 10005)

@@ -17,7 +17,7 @@ class Worker(threading.Thread):
         (ipOfMaster, port) = self.masterAddress
         data = self.conn.recv(200)
         decoded_data = json.loads(data.decode())
-        print("Working for ", ipOfMaster, "with data ", data)
+        #print("Working for ", ipOfMaster, "with data ", data)
         image_name = decoded_data["type"]
         data_value = decoded_data["value"]
         docker_worker = docker.from_env(version="auto")

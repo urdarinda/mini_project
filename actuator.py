@@ -3,6 +3,7 @@ import threading
 import docker
 import json
 import time
+import datetime
 
 
 class Actuator(threading.Thread):
@@ -21,13 +22,19 @@ class Actuator(threading.Thread):
         #print("Working for ", ipOfMaster, "with data ", data)
         value = decoded_data["value"]
         timestamp = (float)(decoded_data["timestamp"])
-        print(value)
+        value = datetime.datetime.fromtimestamp(timestamp)
+        
         current_time = time.time()
-        print(current_time)
+        vc= current_time
+        vcc = datetime.datetime.fromtimestamp(vc)
+        
+        #print(current_time)
         #if type(timestamp) == 'str':
         #    print("x") 
         #    #current_time = (float)current_time
         turn_around_time = current_time - timestamp
+        print(vcc.strftime('%Y-%m-%d %H:%M:%S'))
+        print(value.strftime('%Y-%m-%d %H:%M:%S'))
         print(turn_around_time)
 
 
